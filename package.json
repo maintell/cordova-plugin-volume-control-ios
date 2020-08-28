@@ -3,7 +3,7 @@
   "version": "0.1.8",
   "description": "Cordova Volume Control Plugin for ios",
   "cordova": {
-    "id": "cordova-plugin-volume-control",
+    "id": "cordova-plugin-volume-control-ios",
     "platforms": [
       "ios",
       "android"
