@@ -19,10 +19,7 @@
 - (void)setVolume:(CDVInvokedUrlCommand*)command;
 - (void)setMediaVolume:(CDVInvokedUrlCommand*)command;
 - (void)getVolume:(CDVInvokedUrlCommand*)command;
-/*
-- (void)getCategory:(CDVInvokedUrlCommand*)command;
-- (void)hideVolume:(CDVInvokedUrlCommand*)command;
-*/
+
 @end
 
 @implementation VolumeControl
@@ -36,19 +33,7 @@
 - (void)toggleMute:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
-    DLog(@"toggleMute");
-
-    // Class avSystemControllerClass = NSClassFromString(@"AVSystemController");
-    // id avSystemControllerInstance = [avSystemControllerClass performSelector:@selector(sharedAVSystemController)];
-
-    // NSInvocation *privateInvocation = [NSInvocation invocationWithMethodSignature:
-    //                                   [avSystemControllerClass instanceMethodSignatureForSelector:
-    //                                    @selector(toggleActiveCategoryMuted)]];
-    // [privateInvocation setTarget:avSystemControllerInstance];
-    // [privateInvocation setSelector:@selector(toggleActiveCategoryMuted)];
-    // [privateInvocation invoke];
     BOOL result;
- //   [privateInvocation getReturnValue:&result];
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -58,19 +43,6 @@
 {
     CDVPluginResult* pluginResult = nil;
     BOOL result;
-    DLog(@"isMuted");
-
-    // Class avSystemControllerClass = NSClassFromString(@"AVSystemController");
-    // id avSystemControllerInstance = [avSystemControllerClass performSelector:@selector(sharedAVSystemController)];
-
-    // NSInvocation *privateInvocation = [NSInvocation invocationWithMethodSignature:
-    //                                   [avSystemControllerClass instanceMethodSignatureForSelector:
-    //                                    @selector(getActiveCategoryMuted:)]];
-    // [privateInvocation setTarget:avSystemControllerInstance];
-    // [privateInvocation setSelector:@selector(getActiveCategoryMuted:)];
-    // [privateInvocation setArgument:&result atIndex:2];
-    // [privateInvocation invoke];
-
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -103,7 +75,6 @@
     CDVPluginResult* pluginResult = nil;
       float volume = [[command argumentAtIndex:0] floatValue];
 
-      //DLog(@"setVolume: [%f]", volume);
       NSString *soundCategory = ([self decrypt:(@"QXVkaW8vVmlkZW8=")]);
       Class systemClass = NSClassFromString([self decrypt:(@"QVZTeXN0ZW1Db250cm9sbGVy")]);
     
@@ -127,38 +98,12 @@
 
 - (void)getVolume:(CDVInvokedUrlCommand*)command
 {
-    CDVPluginResult* pluginResult = nil;
-    DLog(@"getVolume");
+    CDVPluginResult* pluginResult = nil;   
 
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
 
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:audioSession.outputVolume];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
-
-/*
-- (void)getCategory:(CDVInvokedUrlCommand*)command
-{
-    CDVPluginResult* pluginResult = nil;
-    DLog(@"getCategory");
-
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:audioSession.category];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)hideVolume:(CDVInvokedUrlCommand*)command
-{
-    CDVPluginResult* pluginResult = nil;
-    DLog(@"hideVolume");
-
-    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
-    volumeView.alpha = 0.01;
-    [self.webView.superview addSubview: volumeView];
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}*/
 
 @end
